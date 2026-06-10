@@ -3619,9 +3619,9 @@ input, select, textarea {
 		@media screen and (max-width: 736px) {
 
 			#banner {
-				padding: 7em 3em 5em 3em ;
-				height: auto;
-				min-height: 0;
+				padding: 0 2em;
+				height: 100svh;
+				min-height: 100svh;
 			}
 
 				#banner h2 {
@@ -3635,6 +3635,10 @@ input, select, textarea {
 				#banner .more {
 					display: none;
 				}
+
+			#one {
+				display: none;
+			}
 
 		}
 
