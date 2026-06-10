@@ -101,9 +101,8 @@ export async function onRequestPost({ request, env }) {
     );
   }
 
-  const lastNameParts = name.split(/\s+/).filter(Boolean);
-  const lastName = (lastNameParts.at(-1) || name).toUpperCase();
-  const subject = `${lastName} - ${CATEGORY_MAP[categoryValue]}`;
+  const subjectName = name;
+  const subject = `${subjectName} - ${CATEGORY_MAP[categoryValue]}`;
 
   const sendEmail = async ({ to, replyTo }) => {
     const response = await fetch('https://api.resend.com/emails', {
