@@ -9,6 +9,7 @@
 		<title>Stevie Bones | Work</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="color-scheme" content="only light" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>			<style>
 				#work-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
@@ -16,7 +17,7 @@
 				#work-gallery .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease; }
 				#work-gallery .gallery-item:hover img { transform: scale(1.03); }
 				body.gallery-open { overflow: hidden; }
-				#gallery-overlay { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; background: #f1efe7; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.2s ease, visibility 0.2s ease; z-index: 10000; }
+				#gallery-overlay { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; background: var(--site-cream); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.2s ease, visibility 0.2s ease; z-index: 10000; }
 				#gallery-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
 				#gallery-overlay-content { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-top: 1rem; }
 				#gallery-overlay img { max-width: calc(100vw - 4rem); max-height: calc(100vh - 8rem); width: auto; height: auto; border-radius: 0.35rem; box-shadow: 0 0 40px rgba(0, 0, 0, 0.06); }
@@ -62,7 +63,6 @@
 							<h2>WORK</h2>
 							<p>Kitchen, bath, and full home transformations</p>
 						</header>
-							<meta name="color-scheme" content="light" />
 						<section class="wrapper style5">
 							<div class="inner">
 
