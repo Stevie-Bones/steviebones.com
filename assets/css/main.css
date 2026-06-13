@@ -3929,7 +3929,29 @@ input, select, textarea {
 	}
 
 	body.generic-page {
+		background: #f1efe7 !important;
 		background-color: var(--site-cream) !important;
+		color: #7a6200 !important;
+	}
+
+	html:has(body.generic-page) {
+		background: #f1efe7 !important;
+	}
+
+	body.generic-page,
+	body.generic-page #page-wrapper,
+	body.generic-page #main,
+	body.generic-page #main > header,
+	body.generic-page .inner,
+	body.generic-page section,
+	body.generic-page article,
+	body.generic-page form,
+	body.generic-page .row,
+	body.generic-page .box,
+	body.generic-page .actions,
+	body.generic-page ul,
+	body.generic-page li {
+		background-color: #f1efe7 !important;
 		color: #7a6200 !important;
 	}
 
@@ -3942,34 +3964,34 @@ input, select, textarea {
 	}
 
 		body.generic-page #header h1 a {
-			color: #7a6200;
+				color: #7a6200 !important;
 		}
 
 		body.generic-page #header nav a {
-			color: #7a6200;
+				color: #7a6200 !important;
 		}
 
 		body.generic-page #header nav ul li:after {
-			background: #7a6200;
+				background: #7a6200 !important;
 		}
 
 	body.generic-page #main > header p {
-		color: #fff;
+			color: #7a6200 !important;
 	}
 
 	body.generic-page .wrapper.style5 {
-		background-color: var(--site-cream) !important;
+			background-color: #f1efe7 !important;
 		color: #7a6200 !important;
 	}
 
 		body.generic-page .wrapper.style5 strong, body.generic-page .wrapper.style5 b {
-			color: #7a6200;
+				color: #7a6200 !important;
 		}
 
 		body.generic-page .wrapper.style5 h2, body.generic-page .wrapper.style5 h3, body.generic-page .wrapper.style5 h4, body.generic-page .wrapper.style5 h5, body.generic-page .wrapper.style5 h6 {
-			color: #7a6200;
+				color: #7a6200 !important;
 		}
 
 		body.generic-page .wrapper.style5 hr {
-			border-color: #7a6200;
+				border-color: #7a6200 !important;
 		}
