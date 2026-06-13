@@ -3928,6 +3928,15 @@ input, select, textarea {
 		filter: none;
 	}
 
+	body.generic-page {
+		background-color: var(--site-cream);
+		color: #7a6200;
+	}
+
+	body.generic-page #page-wrapper {
+		background-color: var(--site-cream);
+	}
+
 	body.generic-page #header {
 		background-color: var(--site-cream);
 	}
