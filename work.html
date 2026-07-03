@@ -9,7 +9,7 @@
 		<title>Stevie Bones | Work</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<meta name="robots" content="noimageindex" />
+		<meta name="robots" content="index, follow" />
 		<meta name="color-scheme" content="only light" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>			<style>
@@ -88,11 +88,11 @@
 				<!-- Footer -->
 					<footer id="footer">
 								<ul class="copyright">
-									<li>&copy; Stevie Bones</li>
 									<li>
 										&nbsp;<span class="icon brands fa-instagram coming-soon"><span class="label">Instagram</span></span>&nbsp;
 										<a href="contact.html" class="icon solid fa-envelope has-tooltip"><span class="label">Email</span></a>
 									</li>
+									<li>&copy; Stevie Bones</li>
 									<li>&nbsp;&nbsp;Design: <a href="http://html5up.net">HTML5 UP</a></li>
 					</footer>
 
@@ -174,10 +174,18 @@
 							})
 							.then(function(list) {
 								if (Array.isArray(list) && list.length) {
-									images = list.map(function(name) {
-										return { src: 'images/' + name, alt: name };
-									});
-									renderGallery();
+									// Only include manifest entries matching Picture_###.jpg to avoid banners or other files.
+									var picPattern = /^Picture_\d{3}\.jpg$/i;
+									var filtered = list.filter(function(name) { return picPattern.test(name); });
+									if (filtered.length) {
+										images = filtered.map(function(name) {
+											return { src: 'images/' + name, alt: name };
+										});
+										renderGallery();
+									} else {
+										// No picture entries in manifest — fall back to probing sequential filenames.
+										throw new Error('No Picture_ entries in manifest');
+									}
 								} else {
 									throw new Error('Empty manifest');
 								}
