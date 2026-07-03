@@ -32,8 +32,8 @@
 				#gallery-overlay-caption { position: static; color: #7a6200; text-align: center; font-size: 1rem; opacity: 0.95; min-height: 1.2em; }
 				#gallery-overlay-logo { position: fixed; top: 0; left: 1.25em; height: 3em; line-height: 3em; margin: 0; padding: 0; display: block; color: #7a6200; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.225em; font-weight: 400; z-index: 10006; pointer-events: none; }
 				@media (max-width: 900px) { #work-gallery { gap: 0.75rem; } }
-				@media (max-width: 736px) { #work-gallery { grid-template-columns: 1fr; } #gallery-overlay { gap: 0.5rem; padding: 0 0.25rem; } #gallery-overlay-content { margin-top: 0.5rem; padding: 0 2rem; } #gallery-overlay img { max-width: calc(100vw - 3rem); max-height: calc(100vh - 6.5rem); } .gallery-overlay-button { min-width: 2rem; padding: 0.35rem; font-size: 1.25rem; } #gallery-prev { left: 0.25rem; } #gallery-next { right: 0.25rem; } #gallery-overlay-logo { top: 0.5rem; left: 0.75rem; } }
-				@media (max-width: 736px) and (orientation: landscape) { #gallery-overlay { padding-top: 0.25rem; } #gallery-overlay-content { margin-top: 0.25rem; padding: 0 2rem; } #gallery-overlay img { max-height: calc(100vh - 5.25rem); } }
+				@media (max-width: 736px) { #work-gallery { grid-template-columns: 1fr; } #gallery-overlay { flex-direction: row; align-items: center; justify-content: center; gap: 0.5rem; padding: 3.5rem 0.75rem 1rem; } #gallery-overlay-content { margin-top: 0; padding: 0; max-width: calc(100vw - 5rem); } #gallery-overlay img { max-width: 100%; max-height: calc(100vh - 6.5rem); } .gallery-overlay-button { position: static; transform: none; min-width: 2.2rem; padding: 0.35rem; font-size: 1.25rem; } #gallery-prev, #gallery-next { top: auto; left: auto; right: auto; } #gallery-prev { order: 1; } #gallery-next { order: 3; } #gallery-overlay-logo { top: 0.5rem; left: 0.75rem; } }
+				@media (max-width: 736px) and (orientation: landscape) { #gallery-overlay { padding-top: 3rem; } #gallery-overlay-content { max-width: calc(100vw - 6rem); } #gallery-overlay img { max-height: calc(100vh - 5.5rem); } }
 			</style>	</head>
 	<body class="is-preload generic-page">
 
