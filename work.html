@@ -164,6 +164,30 @@
 						probe.src = buildImageList(index).src;
 					}
 
+					// New: try to load a manifest file (images/manifest.json) listing current image files.
+					// If it exists, use it; otherwise fall back to the probing approach above.
+					function loadFromManifestOrProbe() {
+						fetch('images/manifest.json', { cache: 'no-store' })
+							.then(function(res) {
+								if (!res.ok) throw new Error('No manifest');
+								return res.json();
+							})
+							.then(function(list) {
+								if (Array.isArray(list) && list.length) {
+									images = list.map(function(name) {
+										return { src: 'images/' + name, alt: name };
+									});
+									renderGallery();
+								} else {
+									throw new Error('Empty manifest');
+								}
+							})
+							.catch(function() {
+								// Manifest not available or invalid — fall back to probing sequential filenames.
+								loadImages(1);
+							});
+					}
+
 					function updateOverlay(index) {
 						currentIndex = (index + images.length) % images.length;
 						overlayImage.src = images[currentIndex].src;
@@ -201,7 +225,8 @@
 						if (event.key === 'ArrowRight') updateOverlay(currentIndex + 1);
 					});
 
-					loadImages(1);
+					// Prefer manifest-driven lists when available to avoid showing stale/deployed files.
+					loadFromManifestOrProbe();
 				})();
 			</script>
 
