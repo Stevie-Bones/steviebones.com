@@ -92,7 +92,8 @@ input, select, textarea {
 	}
 
 	body {
-			background: #2e3842;
+		background: #2e3842;
+		font-family: "Montserrat", sans-serif;
 		}
 
 		body.landing {
@@ -1996,6 +1997,14 @@ input, select, textarea {
 			font-family: 'Font Awesome 5 Brands';
 		}
 
+
+	/* Footer-specific icon sizing */
+	#footer .icon:before {
+		font-size: 1.25em;
+		line-height: 1;
+		vertical-align: middle;
+	}
+
 		.icon.major {
 			-moz-transform: rotate(-45deg);
 			-webkit-transform: rotate(-45deg);
@@ -3398,6 +3407,8 @@ input, select, textarea {
 		-ms-transition: background-color 0.2s ease;
 		transition: background-color 0.2s ease;
 		background: #2e3842;
+		/* border is drawn via a pseudo-element so it appears above header children */
+		border-bottom: 0;
 		height: 3em;
 		left: 0;
 		line-height: 3em;
@@ -3480,7 +3491,7 @@ input, select, textarea {
 					background-repeat: no-repeat;
 					content: '';
 					display: inline-block;
-					height: 3.75em;
+					height: 3em;
 					vertical-align: top;
 					width: 2em;
 				}
@@ -3493,7 +3504,23 @@ input, select, textarea {
 
 		#header.alt {
 			background: transparent;
+			border-bottom: 0;
 		}
+
+	/* Header bottom line drawn above child elements to avoid overlaps */
+	#header::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 1px;
+		background: rgba(0, 0, 0, 0.125);
+		z-index: 10004;
+		pointer-events: none;
+	}
+
+	#header.alt::after { display: none; }
 
 			#header.alt h1 {
 				pointer-events: none;
