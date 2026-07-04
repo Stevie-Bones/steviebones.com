@@ -3837,7 +3837,7 @@ input, select, textarea {
 
 		#footer .copyright {
 				color: #7a6200;
-			font-size: 0.8em;
+			font-size: 0.85em;
 			letter-spacing: 0.225em;
 			list-style: none;
 			padding: 0;
@@ -3850,6 +3850,37 @@ input, select, textarea {
 				line-height: 1em;
 				margin-left: 1em;
 				padding-left: 1em;
+			}
+
+			#footer .copyright li.footer-brand {
+				font-size: 1.25em;
+				font-weight: 400;
+				letter-spacing: 0.28em;
+				line-height: 1.4;
+				padding-left: 1.25em;
+			}
+
+			#footer .copyright li.footer-links {
+				font-size: 1em;
+			}
+
+			#footer .copyright li.footer-links {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+			}
+
+			#footer .copyright li.footer-links .icon {
+				font-size: 1.05em;
+				line-height: 1;
+				position: relative;
+				top: -1px;
+			}
+
+			#footer .copyright li.footer-links .fa-laptop {
+				font-size: 0.9em;
+				position: relative;
+				top: -1px;
 			}
 
 			#footer .copyright li:first-child {
@@ -3892,7 +3923,7 @@ input, select, textarea {
 		}
 
 		#footer .copyright .has-tooltip:hover::after {
-			content: "Contact us";
+			content: attr(data-tooltip);
 			position: absolute;
 			bottom: -2rem;
 			left: 100%;
