@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>404 — Not Found</title>
-    <meta http-equiv="refresh" content="8;url=/" />
+    <meta http-equiv="refresh" content="0;url=/" />
     <style>
       body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#fff;color:#222}
       .box{max-width:36rem;padding:2rem;text-align:center}
@@ -13,14 +13,10 @@
     <script>
       (function(){
         try{
-          var p = location.pathname || '';
-          // If requested resource is in /images/ and looks like an image, redirect immediately to home
-          if (/^\/images\/.+\.(jpg|jpeg|png|gif|webp|svg)$/i.test(p)) {
+            // Redirect all missing paths to site root immediately for a fast UX
             location.replace('/');
             return;
-          }
-        }catch(e){/* ignore */}
-        // otherwise show a friendly 404 and fallback meta refresh
+          }catch(e){/* ignore */}
       })();
     </script>
   </head>
