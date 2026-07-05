@@ -125,6 +125,7 @@
                     var currentIndex = 0;
                     var imageBaseName = 'Picture_';
                     var imageExtension = '.jpg';
+                    var imageVersion = '20260705';
                     var maxImages = 50;
 
                     function padNumber(number) {
@@ -133,7 +134,7 @@
 
                     function buildImage(index) {
                         return {
-                            src: 'images/' + imageBaseName + padNumber(index) + imageExtension,
+                            src: 'images/' + imageBaseName + padNumber(index) + imageExtension + '?v=' + imageVersion,
                             alt: 'Portfolio image ' + padNumber(index)
                         };
                     }
