@@ -171,30 +171,9 @@
                     }
 
                     function loadFromManifestOrProbe() {
-                        fetch('images/manifest.json', { cache: 'no-store' })
-                            .then(function(res) {
-                                if (!res.ok) throw new Error('No manifest');
-                                return res.json();
-                            })
-                            .then(function(list) {
-                                if (Array.isArray(list) && list.length) {
-                                    var picPattern = /^Picture_\d{3}\.jpg$/i;
-                                    var filtered = list.filter(function(name) { return picPattern.test(name); });
-                                    if (filtered.length) {
-                                        images = filtered.map(function(name) {
-                                            return { src: 'images/' + name, alt: name };
-                                        });
-                                        renderGallery();
-                                    } else {
-                                        throw new Error('No Picture_ entries in manifest');
-                                    }
-                                } else {
-                                    throw new Error('Empty manifest');
-                                }
-                            })
-                            .catch(function() {
-                                loadImages(1);
-                            });
+                        galleryRoot.innerHTML = '';
+                        images = [];
+                        loadImages(1);
                     }
 
                     function updateOverlay(index) {
