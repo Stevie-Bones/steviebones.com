@@ -197,40 +197,57 @@
                         loadImages();
                     }
 
-                    function updateOverlay(index) {
-                        currentIndex = (index + images.length) % images.length;
-                        overlayImage.src = images[currentIndex].src;
-                        overlayImage.alt = images[currentIndex].alt;
-                        caption.textContent = (currentIndex + 1) + ' / ' + images.length;
-                        overlay.classList.add('active');
-                        document.body.classList.add('gallery-open');
+                        var image = buildImageList(index);
+                        return fetch(image.src, {
+                            method: 'HEAD',
+                            cache: 'no-store'
+                        }).then(function(res) {
+                            return res.ok;
+                        }).catch(function() {
+                            return false;
+                        });
                     }
-
-                    function closeOverlay() {
-                        overlay.classList.remove('active');
-                        document.body.classList.remove('gallery-open');
-                    }
-
-                    document.getElementById('gallery-close').addEventListener('click', closeOverlay);
-                    document.getElementById('gallery-prev').addEventListener('click', function(event) {
-                        event.stopPropagation();
-                        updateOverlay(currentIndex - 1);
-                    });
-                    document.getElementById('gallery-next').addEventListener('click', function(event) {
-                        event.stopPropagation();
-                        updateOverlay(currentIndex + 1);
-                    });
-
-                    overlay.addEventListener('click', function(event) {
-                        if (event.target === overlay) {
-                            closeOverlay();
++
+                    async function loadImages() {
+                        galleryRoot.innerHTML = '';
+                        images = [];
++
+                        var maxImages = 50;
+                        var concurrency = 6;
+                        var index = 1;
+                        var foundAny = false;
++
+                        while (index <= maxImages) {
+                            var chunk = [];
++                            for (var k = 0; k < concurrency && index <= maxImages; k++, index++) {
+                                chunk.push(index);
++                            }
++
+                            // Probe this chunk in parallel
+                            var results = await Promise.all(chunk.map(function(n) {
+                                return probeImage(n).then(function(exists) { return { n: n, exists: exists }; });
+                            }));
++
+                            // Append any found images immediately to improve perceived speed
+                            results.forEach(function(r) {
+                                if (r.exists) {
+                                    foundAny = true;
+                                    images.push(buildImageList(r.n));
+                                    galleryRoot.appendChild(createGalleryItem(images[images.length - 1], images.length - 1));
+                                }
+                            });
++
                         }
-                    });
-
-                    document.addEventListener('keydown', function(event) {
-                        if (!overlay.classList.contains('active')) return;
-                        if (event.key === 'Escape') closeOverlay();
-                        if (event.key === 'ArrowLeft') updateOverlay(currentIndex - 1);
++
+                        if (!foundAny) {
+                            galleryRoot.innerHTML = '<p>No portfolio images available.</p>';
+                            return;
+                        }
++
+                        // Already rendered incrementally; ensure consistent ordering if needed
+                        // (images array is built in increasing numeric order)
+                    }
+*** End Patch
                         if (event.key === 'ArrowRight') updateOverlay(currentIndex + 1);
                     });
 
