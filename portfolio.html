@@ -158,22 +158,43 @@
                         };
                     }
 
-                    function loadImages(index) {
-                        var probe = new Image();
-                        probe.onload = function() {
-                            images.push(buildImageList(index));
-                            loadImages(index + 1);
-                        };
-                        probe.onerror = function() {
-                            renderGallery();
-                        };
-                        probe.src = buildImageList(index).src;
+                    function probeImage(index) {
+                        var image = buildImageList(index);
+                        return fetch(image.src, {
+                            method: 'HEAD',
+                            cache: 'no-store'
+                        }).then(function(res) {
+                            return res.ok;
+                        }).catch(function() {
+                            return false;
+                        });
+                    }
+
+                    async function loadImages() {
+                        galleryRoot.innerHTML = '';
+                        images = [];
+
+                        var maxImages = 50;
+                        var foundAny = false;
+
+                        for (var i = 1; i <= maxImages; i++) {
+                            // Only include valid Picture_### files that actually exist.
+                            if (await probeImage(i)) {
+                                images.push(buildImageList(i));
+                                foundAny = true;
+                            }
+                        }
+
+                        if (!foundAny) {
+                            galleryRoot.innerHTML = '<p>No portfolio images available.</p>';
+                            return;
+                        }
+
+                        renderGallery();
                     }
 
                     function loadFromManifestOrProbe() {
-                        galleryRoot.innerHTML = '';
-                        images = [];
-                        loadImages(1);
+                        loadImages();
                     }
 
                     function updateOverlay(index) {
