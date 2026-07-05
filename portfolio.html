@@ -119,12 +119,35 @@
                     var overlay = document.getElementById('gallery-overlay');
                     var overlayImage = document.getElementById('gallery-overlay-image');
                     var caption = document.getElementById('gallery-overlay-caption');
+                    var closeButton = document.getElementById('gallery-close');
+                    var prevButton = document.getElementById('gallery-prev');
+                    var nextButton = document.getElementById('gallery-next');
                     var currentIndex = 0;
                     var imageBaseName = 'Picture_';
                     var imageExtension = '.jpg';
+                    var maxImages = 50;
 
                     function padNumber(number) {
                         return String(number).padStart(3, '0');
+                    }
+
+                    function buildImage(index) {
+                        return {
+                            src: 'images/' + imageBaseName + padNumber(index) + imageExtension,
+                            alt: 'Portfolio image ' + padNumber(index)
+                        };
+                    }
+
+                    function probeImage(index) {
+                        var image = buildImage(index);
+                        return fetch(image.src, {
+                            method: 'HEAD',
+                            cache: 'no-store'
+                        }).then(function(res) {
+                            return res.ok;
+                        }).catch(function() {
+                            return false;
+                        });
                     }
 
                     function createGalleryItem(image, index) {
@@ -151,36 +174,41 @@
                         });
                     }
 
-                    function buildImageList(index) {
-                        return {
-                            src: 'images/' + imageBaseName + padNumber(index) + imageExtension,
-                            alt: 'Portfolio image ' + padNumber(index)
-                        };
+                    function updateOverlay(index) {
+                        if (!images.length) {
+                            return;
+                        }
+
+                        currentIndex = (index + images.length) % images.length;
+                        overlayImage.src = images[currentIndex].src;
+                        overlayImage.alt = images[currentIndex].alt;
+                        caption.textContent = images[currentIndex].alt;
+                        overlay.classList.add('active');
+                        document.body.classList.add('gallery-open');
                     }
 
-                    function probeImage(index) {
-                        var image = buildImageList(index);
-                        return fetch(image.src, {
-                            method: 'HEAD',
-                            cache: 'no-store'
-                        }).then(function(res) {
-                            return res.ok;
-                        }).catch(function() {
-                            return false;
-                        });
+                    function closeOverlay() {
+                        overlay.classList.remove('active');
+                        document.body.classList.remove('gallery-open');
+                    }
+
+                    function navigate(step) {
+                        if (!images.length) {
+                            return;
+                        }
+
+                        updateOverlay(currentIndex + step);
                     }
 
                     async function loadImages() {
                         galleryRoot.innerHTML = '';
                         images = [];
 
-                        var maxImages = 50;
                         var foundAny = false;
 
                         for (var i = 1; i <= maxImages; i++) {
-                            // Only include valid Picture_### files that actually exist.
                             if (await probeImage(i)) {
-                                images.push(buildImageList(i));
+                                images.push(buildImage(i));
                                 foundAny = true;
                             }
                         }
@@ -193,65 +221,35 @@
                         renderGallery();
                     }
 
-                    function loadFromManifestOrProbe() {
-                        loadImages();
-                    }
-
-                        var image = buildImageList(index);
-                        return fetch(image.src, {
-                            method: 'HEAD',
-                            cache: 'no-store'
-                        }).then(function(res) {
-                            return res.ok;
-                        }).catch(function() {
-                            return false;
-                        });
-                    }
-+
-                    async function loadImages() {
-                        galleryRoot.innerHTML = '';
-                        images = [];
-+
-                        var maxImages = 50;
-                        var concurrency = 6;
-                        var index = 1;
-                        var foundAny = false;
-+
-                        while (index <= maxImages) {
-                            var chunk = [];
-+                            for (var k = 0; k < concurrency && index <= maxImages; k++, index++) {
-                                chunk.push(index);
-+                            }
-+
-                            // Probe this chunk in parallel
-                            var results = await Promise.all(chunk.map(function(n) {
-                                return probeImage(n).then(function(exists) { return { n: n, exists: exists }; });
-                            }));
-+
-                            // Append any found images immediately to improve perceived speed
-                            results.forEach(function(r) {
-                                if (r.exists) {
-                                    foundAny = true;
-                                    images.push(buildImageList(r.n));
-                                    galleryRoot.appendChild(createGalleryItem(images[images.length - 1], images.length - 1));
-                                }
-                            });
-+
+                    closeButton.addEventListener('click', closeOverlay);
+                    prevButton.addEventListener('click', function() {
+                        navigate(-1);
+                    });
+                    nextButton.addEventListener('click', function() {
+                        navigate(1);
+                    });
+                    overlay.addEventListener('click', function(event) {
+                        if (event.target === overlay) {
+                            closeOverlay();
                         }
-+
-                        if (!foundAny) {
-                            galleryRoot.innerHTML = '<p>No portfolio images available.</p>';
+                    });
+                    document.addEventListener('keydown', function(event) {
+                        if (!overlay.classList.contains('active')) {
                             return;
                         }
-+
-                        // Already rendered incrementally; ensure consistent ordering if needed
-                        // (images array is built in increasing numeric order)
-                    }
-*** End Patch
-                        if (event.key === 'ArrowRight') updateOverlay(currentIndex + 1);
+
+                        if (event.key === 'Escape') {
+                            closeOverlay();
+                        }
+                        if (event.key === 'ArrowLeft') {
+                            navigate(-1);
+                        }
+                        if (event.key === 'ArrowRight') {
+                            navigate(1);
+                        }
                     });
 
-                    loadFromManifestOrProbe();
+                    loadImages();
                 })();
             </script>
 </html>
