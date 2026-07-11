@@ -3496,9 +3496,7 @@ input, select, textarea {
 					width: 2em;
 				}
 
-						}
-
-					#header nav > ul > li:first-child {
+	                    #header nav > ul > li:first-child {
 						margin-left: 0;
 					}
 
@@ -3818,165 +3816,210 @@ input, select, textarea {
 /* Footer */
 
 	#footer {
-		padding: 6em 0 4em 0 ;
+		padding: 6em 0 4em 0;
 		background-color: var(--site-cream) !important;
 		text-align: center;
 	}
 
-		#footer .icons {
-			font-size: 1.25em;
-		}
+	#footer .copyright {
+		color: #7a6200;
+		font-size: 0.85em;
+		letter-spacing: 0.225em;
+		list-style: none;
+		padding: 0;
+		display: inline-grid;
+		grid-auto-flow: column;
+		align-items: center;
+		justify-content: center;
+		gap: 0.75rem;
+		text-transform: uppercase;
+	}
 
-			#footer .icons a {
-				color: #7a6200;
-			}
+	#footer .copyright li {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		line-height: 1;
+		margin: 0;
+		padding: 0;
+	}
 
-				#footer .icons a:hover {
-					color: #1d242a;
-				}
+	#footer .copyright li.footer-brand {
+		/* Use a pseudo-element for the separator so it's vertically centered */
+		padding-left: 0;
+		margin-left: 0;
+		font-size: 1.25em;
+		font-weight: 400;
+		letter-spacing: 0.28em;
+		line-height: 1;
+		align-self: center;
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+	}
 
+	#footer .copyright li.footer-brand::before {
+		content: "";
+		display: inline-block;
+		width: 1px;
+		height: 1.25em;
+		background: #7a6200;
+		margin-right: 0.9rem;
+		flex-shrink: 0;
+		align-self: center;
+	}
+
+	#footer .copyright li.footer-links {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 1.4rem;
+		font-size: 1em;
+		align-self: center;
+		position: relative;
+		top: -0.2rem;
+	}
+
+	body.portfolio-page #footer .copyright li.footer-brand {
+		position: relative;
+		top: -0.09rem;
+	}
+
+	body.about-page #footer .copyright li.footer-brand {
+		position: relative;
+		top: -0.11rem;
+	}
+
+	body.contact-page #footer .copyright li.footer-brand {
+		position: relative;
+		top: -0.1rem;
+	}
+
+	#footer .copyright li.footer-links .icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1rem;
+		line-height: 1;
+		margin: 0 0.45rem;
+		position: relative;
+		top: 0;
+	}
+
+	/* Normalize icon metrics so all icon fonts sit on the same visual baseline */
+	#footer .copyright li.footer-links .icon,
+	#footer .copyright li.footer-links .icon:before {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: 1.25em;
+		line-height: 1;
+		vertical-align: middle;
+	}
+
+	#footer .copyright li.footer-links .icon:before {
+		font-size: 1em; /* ensure pseudo-icon glyph scales with container */
+	}
+
+	#footer .copyright li.footer-links .laptop-icon {
+		font-size: 0.88rem;
+		transform: translateY(1px) !important;
+	}
+
+	#footer .copyright li.footer-links .icon-lowered {
+		transform: translateY(1px) !important;
+	}
+
+	#footer .copyright .icon {
+		vertical-align: middle;
+	}
+
+	/* Tweak specific footer icons for consistent visual height */
+	#footer .copyright .fa-shopping-bag {
+		font-size: 0.88rem;
+		position: relative;
+		top: 0;
+		transform: none;
+		height: 1em;
+		width: auto;
+	}
+
+	#footer .copyright .coming-soon {
+		position: relative;
+		cursor: default;
+	}
+
+	#footer .copyright .coming-soon:hover::after,
+	#footer .copyright .has-tooltip:hover::after {
+		position: absolute;
+		bottom: -2rem;
+		left: 100%;
+		right: auto;
+		transform: none;
+		white-space: nowrap;
+		background: var(--site-cream);
+		color: #7a6200;
+		border: 1px solid rgba(122,98,0,0.25);
+		font-size: 0.75rem;
+		padding: 0.35rem 0.6rem;
+		border-radius: 0.35rem;
+		pointer-events: none;
+		z-index: 1;
+	}
+
+	#footer .copyright .coming-soon:hover::after {
+		content: "Coming soon";
+	}
+
+	#footer .copyright .has-tooltip {
+		position: relative;
+	}
+
+	#footer .copyright .has-tooltip:hover::after {
+		content: attr(data-tooltip);
+	}
+
+	#footer .copyright li a {
+		color: inherit;
+	}
+
+	#footer .copyright li a:hover {
+		color: #1d242a;
+	}
+
+	@media screen and (max-width: 480px) {
 		#footer .copyright {
-				color: #7a6200;
-			font-size: 0.85em;
-			letter-spacing: 0.225em;
-			list-style: none;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		#footer .copyright li.footer-brand {
+			border-left: 0;
+			margin: 0;
 			padding: 0;
-			text-transform: uppercase;
 		}
 
-			#footer .copyright li {
-				border-left: solid 1px #7a6200;
-				display: inline-block;
-				line-height: 1em;
-				margin-left: 1em;
-				padding-left: 1em;
-			}
-
-			#footer .copyright li.footer-brand {
-				font-size: 1.25em;
-				font-weight: 400;
-				letter-spacing: 0.28em;
-				line-height: 1.4;
-				padding-left: 1.25em;
-			}
-
-			#footer .copyright li.footer-links {
-				font-size: 1em;
-			}
-
-			#footer .copyright li.footer-links {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.4rem;
-			}
-
-			#footer .copyright li.footer-links .icon {
-				font-size: 1.05em;
-				line-height: 1;
-				position: relative;
-				top: -1px;
-			}
-
-			#footer .copyright li.footer-links .fa-laptop {
-				font-size: 0.9em;
-				position: relative;
-				top: -1px;
-			}
-
-			#footer .copyright li:first-child {
-				border-left: 0;
-				margin-left: 0;
-				padding-left: 0;
-			}
-
-		#footer .copyright .icon {
-			margin: 0 0.4em;
-			vertical-align: middle;
+		#footer .copyright li.footer-links {
+			justify-content: center;
 		}
 
-		#footer .copyright .coming-soon {
-			position: relative;
-			cursor: default;
+		#footer .copyright li {
+			padding: 0.5em 0;
 		}
+	}
 
-		#footer .copyright .coming-soon:hover::after {
-			content: "Coming soon";
-			position: absolute;
-			bottom: -2rem;
-			left: 100%;
-			right: auto;
-			transform: none;
-			white-space: nowrap;
-			background: var(--site-cream);
-			color: #7a6200;
-			border: 1px solid rgba(122,98,0,0.25);
-			font-size: 0.75rem;
-			padding: 0.35rem 0.6rem;
-			border-radius: 0.35rem;
-			pointer-events: none;
-			z-index: 1;
+	@media screen and (max-width: 980px) {
+		#footer {
+			padding: 4em 3em 2em 3em;
 		}
+	}
 
-		/* Styled tooltip for elements with .has-tooltip (e.g. mail link) */
-		#footer .copyright .has-tooltip {
-			position: relative;
+	@media screen and (max-width: 736px) {
+		#footer {
+			padding: 3em 2em 1em 2em;
 		}
-
-		#footer .copyright .has-tooltip:hover::after {
-			content: attr(data-tooltip);
-			position: absolute;
-			bottom: -2rem;
-			left: 100%;
-			right: auto;
-			transform: none;
-			white-space: nowrap;
-			background: var(--site-cream);
-			color: #7a6200;
-			border: 1px solid rgba(122,98,0,0.25);
-			font-size: 0.75rem;
-			padding: 0.35rem 0.6rem;
-			border-radius: 0.35rem;
-			pointer-events: none;
-			z-index: 1;
-		}
-				#footer .copyright li a {
-					color: inherit;
-				}
-
-					#footer .copyright li a:hover {
-						color: #1d242a;
-					}
-
-				@media screen and (max-width: 480px) {
-
-					#footer .copyright li {
-						border: 0;
-						display: block;
-						line-height: 1.65em;
-						margin: 0;
-						padding: 0.5em 0;
-					}
-
-				}
-
-		@media screen and (max-width: 980px) {
-
-			#footer {
-				padding: 4em 3em 2em 3em ;
-			}
-
-		}
-
-		@media screen and (max-width: 736px) {
-
-			#footer {
-				padding: 3em 2em 1em 2em ;
-			}
-
-		}
-
-/* Landing */
-
+	}
 	body.landing #page-wrapper {
 		background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.jpg");
 		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.jpg");
