@@ -4009,6 +4009,7 @@ input, select, textarea {
 			border-left: 0;
 			margin: 0;
 			padding: 0;
+			order: -1;
 		}
 
 		#footer .copyright li.footer-brand::before {
@@ -4022,6 +4023,7 @@ input, select, textarea {
 			flex-wrap: nowrap;
 			gap: 1.8rem;
 			width: 100%;
+			order: 0;
 		}
 
 		#footer .copyright li.footer-links .icon {
