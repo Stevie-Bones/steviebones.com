@@ -22,7 +22,7 @@
                 body.gallery-open { overflow: hidden; }
                 #gallery-overlay { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding-top: 3rem; background: var(--site-cream) !important; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.2s ease, visibility 0.2s ease; z-index: 10005; }
                 #gallery-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
-                #gallery-overlay-content { position: relative; display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-top: 1rem; padding: 0; max-width: 100%; }
+                #gallery-overlay-content { position: relative; display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-top: 1rem; padding: 0; max-width: 100%; width: 100%; }
                 #gallery-stage { position: relative; display: flex; align-items: center; justify-content: center; width: 100%; max-width: 100%; padding: 0 3rem; }
                 #gallery-overlay img { max-width: calc(100vw - 4rem); max-height: calc(100vh - 8rem); width: auto; height: auto; border-radius: 0.35rem; box-shadow: 0 0 40px rgba(0, 0, 0, 0.06); }
                 .gallery-overlay-button { position: absolute; top: 50%; transform: translateY(-50%); border: none; background: transparent; color: #7a6200 !important; min-width: 2.75rem; height: auto; padding: 0.75rem; border-radius: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.9rem; line-height: 1; font-family: inherit; font-weight: 400; -webkit-appearance: none; appearance: none; transition: background 0.2s ease, transform 0.2s ease; z-index: 1; }
@@ -30,10 +30,11 @@
                 #gallery-close { top: 1rem; right: 1rem; position: absolute; transform: none; }
                 #gallery-prev { left: 0; }
                 #gallery-next { right: 0; }
+                #gallery-overlay-controls { display: flex; align-items: center; justify-content: center; gap: 0.6rem; width: 100%; }
                 #gallery-overlay-caption { position: static; color: #7a6200; text-align: center; font-size: 1rem; opacity: 0.95; min-height: 1.2em; }
                 #gallery-overlay-logo { position: fixed; top: 0; left: 1.25em; height: 3em; line-height: 3em; margin: 0; padding: 0; display: block; color: #7a6200; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.225em; font-weight: 400; z-index: 10006; pointer-events: none; transform: none; }
                 @media (max-width: 900px) { #portfolio-gallery { gap: 0.75rem; } }
-                @media (max-width: 736px) { #portfolio-gallery { grid-template-columns: 1fr; } #gallery-overlay { gap: 0.5rem; padding: 3.75rem 0.75rem 1rem; } #gallery-stage { padding: 0; gap: 0; } #gallery-overlay-content { position: relative; margin-top: 0; max-width: 100%; width: 100%; } #gallery-overlay img { max-width: 100%; max-height: calc(100vh - 7rem); width: 100%; height: auto; object-fit: contain; } .gallery-overlay-button { position: absolute; bottom: 0.35rem; transform: none; min-width: 2.2rem; padding: 0.35rem; font-size: 1.25rem; z-index: 2; } #gallery-prev { left: 0.25rem; } #gallery-next { right: 0.25rem; } #gallery-overlay-caption { position: absolute; left: 50%; bottom: 0.35rem; transform: translateX(-50%); min-height: auto; padding: 0 2.8rem; z-index: 1; } #gallery-overlay-logo { top: 0.75rem; left: 0.75rem; } }
+                @media (max-width: 736px) { #portfolio-gallery { grid-template-columns: 1fr; } #gallery-overlay { gap: 0.5rem; padding: 3.75rem 0.75rem 1rem; } #gallery-stage { padding: 0; gap: 0; } #gallery-overlay-content { position: relative; margin-top: 0; max-width: 100%; width: 100%; gap: 0.6rem; } #gallery-overlay img { max-width: 100%; max-height: calc(100vh - 7rem); width: 100%; height: auto; object-fit: contain; } #gallery-overlay-controls { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; } .gallery-overlay-button { position: static; transform: none; min-width: 2.2rem; padding: 0.25rem 0.45rem; font-size: 1.25rem; z-index: 2; } .gallery-overlay-button:hover { transform: none; } #gallery-prev, #gallery-next { left: auto; right: auto; } #gallery-overlay-caption { position: static; transform: none; min-height: auto; padding: 0; z-index: 1; } #gallery-close { top: 0.75rem; right: 0.75rem; position: absolute; transform: none; min-width: 2.2rem; padding: 0.35rem; font-size: 1.25rem; } #gallery-overlay-logo { top: 0.75rem; left: 0.75rem; } }
                 @media (max-width: 736px) and (orientation: landscape) { #gallery-overlay { padding-top: 3rem; } #gallery-overlay-content { max-width: calc(100vw - 6rem); } #gallery-overlay img { max-height: calc(100vh - 5.5rem); } }
             </style>
     </head>
@@ -80,12 +81,14 @@
                                     <div id="gallery-overlay-logo">Stevie Bones</div>
                                     <button id="gallery-close" class="gallery-overlay-button" aria-label="Close">×</button>
                                     <div id="gallery-stage">
-                                        <button id="gallery-prev" class="gallery-overlay-button" aria-label="Previous">‹</button>
                                         <div id="gallery-overlay-content">
                                             <img id="gallery-overlay-image" src="" alt="" />
-                                            <div id="gallery-overlay-caption"></div>
+                                            <div id="gallery-overlay-controls">
+                                                <button id="gallery-prev" class="gallery-overlay-button" aria-label="Previous">‹</button>
+                                                <div id="gallery-overlay-caption"></div>
+                                                <button id="gallery-next" class="gallery-overlay-button" aria-label="Next">›</button>
+                                            </div>
                                         </div>
-                                        <button id="gallery-next" class="gallery-overlay-button" aria-label="Next">›</button>
                                     </div>
                                 </div>
                         </section>
