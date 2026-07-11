@@ -4001,7 +4001,18 @@ input, select, textarea {
 		}
 
 		#footer .copyright li.footer-links {
+			display: flex;
 			justify-content: center;
+			align-items: center;
+			flex-wrap: nowrap;
+			gap: 0.8rem;
+			width: 100%;
+			margin-bottom: 0.25rem;
+		}
+
+		#footer .copyright li.footer-links .icon {
+			margin: 0;
+			font-size: 0.95rem;
 		}
 
 		#footer .copyright li {
