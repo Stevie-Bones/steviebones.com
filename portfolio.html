@@ -33,7 +33,7 @@
                 #gallery-overlay-caption { position: static; color: #7a6200; text-align: center; font-size: 1rem; opacity: 0.95; min-height: 1.2em; }
                 #gallery-overlay-logo { position: fixed; top: 0; left: 1.25em; height: 3em; line-height: 3em; margin: 0; padding: 0; display: block; color: #7a6200; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.225em; font-weight: 400; z-index: 10006; pointer-events: none; transform: none; }
                 @media (max-width: 900px) { #portfolio-gallery { gap: 0.75rem; } }
-                @media (max-width: 736px) { #portfolio-gallery { grid-template-columns: 1fr; } #gallery-overlay { gap: 0.5rem; padding: 3.75rem 0.75rem 1rem; } #gallery-stage { padding: 0 0.25rem; gap: 0.35rem; } #gallery-overlay-content { margin-top: 0; max-width: calc(100vw - 5rem); } #gallery-overlay img { max-width: 100%; max-height: calc(100vh - 7rem); } .gallery-overlay-button { position: static; transform: none; min-width: 2.2rem; padding: 0.35rem; font-size: 1.25rem; } #gallery-prev, #gallery-next { top: auto; left: auto; right: auto; } #gallery-overlay-logo { top: 0.75rem; left: 0.75rem; } }
+                @media (max-width: 736px) { #portfolio-gallery { grid-template-columns: 1fr; } #gallery-overlay { gap: 0.5rem; padding: 3.75rem 0.75rem 1rem; } #gallery-stage { padding: 0; gap: 0; } #gallery-overlay-content { position: relative; margin-top: 0; max-width: 100%; width: 100%; } #gallery-overlay img { max-width: 100%; max-height: calc(100vh - 7rem); width: 100%; height: auto; object-fit: contain; } .gallery-overlay-button { position: absolute; bottom: 0.35rem; transform: none; min-width: 2.2rem; padding: 0.35rem; font-size: 1.25rem; z-index: 2; } #gallery-prev { left: 0.25rem; } #gallery-next { right: 0.25rem; } #gallery-overlay-caption { position: absolute; left: 50%; bottom: 0.35rem; transform: translateX(-50%); min-height: auto; padding: 0 2.8rem; z-index: 1; } #gallery-overlay-logo { top: 0.75rem; left: 0.75rem; } }
                 @media (max-width: 736px) and (orientation: landscape) { #gallery-overlay { padding-top: 3rem; } #gallery-overlay-content { max-width: calc(100vw - 6rem); } #gallery-overlay img { max-height: calc(100vh - 5.5rem); } }
             </style>
     </head>
@@ -66,7 +66,7 @@
                     <article id="main">
                         <header>
                             <h2>Portfolio</h2>
-                            <p>Kitchens, Baths, and Whole Home Projects</p>
+                            <p>Kitchen, Bath, and Whole-Home Projects</p>
                         </header>
                         <section class="wrapper style5">
                             <div class="inner">
@@ -126,16 +126,20 @@
                     var imageBaseName = 'Picture_';
                     var imageExtension = '.jpg';
                     var imageVersion = '20260705';
-                    var maxImages = 50;
+                    var maxImages = 18;
 
                     function padNumber(number) {
                         return String(number).padStart(3, '0');
                     }
 
+                    function formatImageLabel(index) {
+                        return index + '/' + maxImages;
+                    }
+
                     function buildImage(index) {
                         return {
                             src: 'images/' + imageBaseName + padNumber(index) + imageExtension + '?v=' + imageVersion,
-                            alt: 'Portfolio image ' + padNumber(index)
+                            alt: formatImageLabel(index)
                         };
                     }
 
@@ -159,6 +163,8 @@
                         var img = document.createElement('img');
                         img.src = image.src;
                         img.alt = image.alt;
+                        img.loading = 'lazy';
+                        img.decoding = 'async';
                         item.appendChild(img);
 
                         item.addEventListener('click', function() {
@@ -166,13 +172,6 @@
                         });
 
                         return item;
-                    }
-
-                    function renderGallery() {
-                        galleryRoot.innerHTML = '';
-                        images.forEach(function(image, index) {
-                            galleryRoot.appendChild(createGalleryItem(image, index));
-                        });
                     }
 
                     function updateOverlay(index) {
@@ -206,20 +205,27 @@
                         images = [];
 
                         var foundAny = false;
+                        var loadingMessage = document.createElement('p');
+                        loadingMessage.textContent = 'Loading portfolio images...';
+                        loadingMessage.className = 'gallery-loading';
+                        galleryRoot.appendChild(loadingMessage);
 
                         for (var i = 1; i <= maxImages; i++) {
                             if (await probeImage(i)) {
                                 images.push(buildImage(i));
                                 foundAny = true;
+
+                                if (loadingMessage.parentNode) {
+                                    loadingMessage.remove();
+                                }
+
+                                galleryRoot.appendChild(createGalleryItem(images[images.length - 1], images.length - 1));
                             }
                         }
 
                         if (!foundAny) {
                             galleryRoot.innerHTML = '<p>No portfolio images available.</p>';
-                            return;
                         }
-
-                        renderGallery();
                     }
 
                     closeButton.addEventListener('click', closeOverlay);
