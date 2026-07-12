@@ -3984,6 +3984,15 @@ input, select, textarea {
 		color: inherit;
 	}
 
+	@media screen and (max-width: 736px) {
+		#footer .copyright .coming-soon:hover::after,
+		#footer .copyright .has-tooltip:hover::after {
+			font-size: 0.5rem;
+			padding: 0.25rem 0.5rem;
+			bottom: -1.2rem;
+		}
+	}
+
 	#footer .copyright li a:hover {
 		color: #1d242a;
 	}
