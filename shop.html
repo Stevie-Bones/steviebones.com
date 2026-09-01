@@ -6,7 +6,7 @@
 -->
 <html>
     <head>
-        <title>Stevie Bones | Portfolio</title>
+        <title>Stevie Bones | Shop</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <meta name="robots" content="index, follow" />
@@ -40,7 +40,7 @@
                 @media (max-width: 736px) and (orientation: landscape) { #gallery-overlay { padding-top: 3rem; } #gallery-overlay-content { max-width: calc(100vw - 6rem); } #gallery-overlay img { max-height: calc(100vh - 5.5rem); } }
             </style>
     </head>
-    <body class="is-preload generic-page portfolio-page">
+    <body class="is-preload generic-page shop-page">
 
         <!-- Page Wrapper -->
             <div id="page-wrapper">
@@ -69,14 +69,14 @@
                 <!-- Main -->
                     <article id="main">
                         <header>
-                            <h2>Portfolio</h2>
-                            <p>Kitchen, Bath, and Whole-Home Projects</p>
+                            <h2>Shop</h2>
+                            <p>Premium Home Aesthetics</p>
                         </header>
                         <section class="wrapper style5">
                             <div class="inner">
 
                                 <section>
-                                        <h4>Selected Work</h4>
+                                        <h4>Curated Collection</h4>
                                     <div class="box alt">
                                             <div id="portfolio-gallery"></div>
                                 </div>
@@ -94,6 +94,11 @@
                                         </div>
                                     </div>
                                 </div>
+                        </section>
+                        <section class="wrapper style5" style="margin-bottom: -2rem;">
+                            <div class="inner">
+                                <p style="text-align: center; margin: 0 0 0 0; font-size: 0.95rem;">To inquire about purchasing any of our shop items, please call <a href="tel:6143629808" style="color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; font-weight: 500;">(614) 362-9808</a> or use the <a href="contact.html" style="color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; font-weight: 500;">contact form</a>.</p>
+                            </div>
                         </section>
                     </article>
 
@@ -131,10 +136,10 @@
                     var prevButton = document.getElementById('gallery-prev');
                     var nextButton = document.getElementById('gallery-next');
                     var currentIndex = 0;
-                    var imageBaseName = 'Picture_';
+                    var imageBaseName = 'Shop_';
                     var imageExtension = '.jpg';
                     var imageVersion = '20260705';
-                    var maxImages = 18;
+                    var maxImages = 2;
 
                     function padNumber(number) {
                         return String(number).padStart(3, '0');
@@ -225,12 +230,8 @@
                         overlayImage.src = images[currentIndex].src;
                         overlayImage.alt = images[currentIndex].alt;
                         
-                        var captionText = images[currentIndex].alt;
                         var description = images[currentIndex].description.trim();
-                        if (description) {
-                            captionText += ' - ' + description;
-                        }
-                        caption.textContent = captionText;
+                        caption.textContent = description;
                         
                         overlay.classList.add('active');
                         document.body.classList.add('gallery-open');
@@ -255,7 +256,7 @@
 
                         var foundAny = false;
                         var loadingMessage = document.createElement('p');
-                        loadingMessage.textContent = 'Loading portfolio images...';
+                        loadingMessage.textContent = 'Loading shop items...';
                         loadingMessage.className = 'gallery-loading';
                         galleryRoot.appendChild(loadingMessage);
 
@@ -275,7 +276,7 @@
                         }
 
                         if (!foundAny) {
-                            galleryRoot.innerHTML = '<p>No portfolio images available.</p>';
+                            galleryRoot.innerHTML = '<p>No shop items available.</p>';
                         }
                     }
 
